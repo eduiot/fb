@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<body>
+
+    <pre id="json"></pre>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase-auth.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyB2rVrpu2x5cW-TAWGpuozbpPwNNU5ev8w",
+    authDomain: "ipark-274d7.firebaseapp.com",
+    databaseURL: "https://ipark-274d7.firebaseio.com",
+    projectId: "ipark-274d7",
+    storageBucket: "ipark-274d7.appspot.com",
+    messagingSenderId: "813197029099",
+    appId: "1:813197029099:web:2375dbad3ea0cc04"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  
+  var ref = firebase.database().ref();
+
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+function googleSignin() {
+   firebase.auth()
+   
+   .signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+		
+      console.log(token)
+      console.log(user)
+   }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+		
+      console.log(error.code)
+      console.log(error.message)
+   });
+}
+
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
+}               
+
+</script>
+
+<button onclick = "googleSignin()">Google Signin</button>
+<button onclick = "googleSignout()">Google Signout</button>
+</body>
+</html>
